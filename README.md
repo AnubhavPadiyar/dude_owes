@@ -74,22 +74,6 @@ lib/
 - Android Studio / VS Code
 - Android device or emulator
 
-### Installation
-
-```bash
-# Clone the repository
-git clone https://github.com/AnubhavPadiyar/dude_owes.git
-
-# Navigate to project
-cd dude_owes
-
-# Install dependencies
-flutter pub get
-
-# Run on device
-flutter run
-```
-
 ---
 
 ## 📦 Dependencies
