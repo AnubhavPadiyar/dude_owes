@@ -104,6 +104,12 @@ dependencies:
 
 ---
 
+## 📦 Download APK
+
+[Download DudeOwes v1.0.0](https://github.com/AnubhavPadiyar/dude_owes/releases/tag/v1.0.0)
+
+---
+
 ## 🗺️ Roadmap
 
 - [x] Dashboard with live data
