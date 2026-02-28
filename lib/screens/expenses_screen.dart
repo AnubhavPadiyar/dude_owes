@@ -381,3 +381,42 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
     );
   }
 }
+class _InputField extends StatelessWidget {
+  final TextEditingController controller;
+  final String label;
+  final IconData icon;
+  final TextInputType keyboardType;
+  final String? prefix;
+
+  const _InputField({
+    required this.controller,
+    required this.label,
+    required this.icon,
+    this.keyboardType = TextInputType.text,
+    this.prefix,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      controller: controller,
+      keyboardType: keyboardType,
+      style: AppText.h3,
+      decoration: InputDecoration(
+        labelText: label,
+        labelStyle: AppText.body,
+        prefixText: prefix,
+        prefixIcon: Icon(icon, color: AppColors.grey, size: 20),
+        filled: true,
+        fillColor: AppColors.greyLight,
+        border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(14),
+            borderSide: BorderSide.none),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(14),
+          borderSide: const BorderSide(color: AppColors.teal, width: 1.5),
+        ),
+      ),
+    );
+  }
+}
