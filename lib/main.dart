@@ -4,9 +4,11 @@ import 'screens/expenses_screen.dart';
 import 'screens/budget_screen.dart';
 import 'screens/onboarding_screen.dart';
 import 'screens/settings_screen.dart';
-import 'database/db_helper.dart';
 import 'screens/lend_borrow_screen.dart';
 import 'screens/calculator_screen.dart';
+import 'screens/room_split_screen.dart';
+import 'database/db_helper.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final prefs = await SharedPreferences.getInstance();
@@ -14,12 +16,10 @@ void main() async {
   runApp(DudeOwesApp(showOnboarding: !onboardingDone));
 }
 
-// ── Design Tokens (Financy palette) ─────────────────────────────────────────
 class AppColors {
   static const background    = Color(0xFFF5F5F5);
   static const dark          = Color(0xFF242424);
   static const white         = Color(0xFFFFFFFF);
-
   static const red           = Color(0xFFE0533D);
   static const redLight      = Color(0xFFFDECE9);
   static const lavender      = Color(0xFF9DA7D0);
@@ -50,7 +50,6 @@ class AppText {
   static const label = TextStyle(fontSize: 11, fontWeight: FontWeight.w500, color: AppColors.grey, letterSpacing: 0.2);
 }
 
-// ── App Root ─────────────────────────────────────────────────────────────────
 class DudeOwesApp extends StatelessWidget {
   final bool showOnboarding;
   const DudeOwesApp({super.key, required this.showOnboarding});
@@ -70,7 +69,6 @@ class DudeOwesApp extends StatelessWidget {
   }
 }
 
-// ── Root with Bottom Nav ──────────────────────────────────────────────────────
 class RootScreen extends StatefulWidget {
   const RootScreen({super.key});
 
@@ -161,7 +159,6 @@ class _NavItem extends StatelessWidget {
   }
 }
 
-// ── Dashboard ─────────────────────────────────────────────────────────────────
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
 
@@ -181,7 +178,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
     _loadData();
   }
 
-  // Reload every time dashboard becomes visible
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -222,7 +218,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Header
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -249,7 +244,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
                 const SizedBox(height: 24),
 
-                // Main balance card
                 Container(
                   width: double.infinity,
                   padding: const EdgeInsets.all(24),
@@ -286,12 +280,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
                 const SizedBox(height: 24),
 
-                // Quick action cards
                 Row(
                   children: [
                     Expanded(
                       child: GestureDetector(
-                        onTap: () {},
+                        onTap: () => Navigator.push(context,
+                            MaterialPageRoute(builder: (_) => const LendBorrowScreen())).then((_) => _loadData()),
                         child: const _BigActionCard(
                           label: 'Lend / Borrow',
                           sub: 'Track dues',
@@ -304,7 +298,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     const SizedBox(width: 14),
                     Expanded(
                       child: GestureDetector(
-                        onTap: () {},
+                        onTap: () => Navigator.push(context,
+                            MaterialPageRoute(builder: (_) => const RoomSplitScreen())).then((_) => _loadData()),
                         child: const _BigActionCard(
                           label: 'Room Split',
                           sub: 'Split bills',
@@ -353,7 +348,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
                 const SizedBox(height: 28),
 
-                // Recent transactions
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -439,8 +433,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
                 const SizedBox(height: 28),
 
-                // Calculator quick access
-             GestureDetector(
+                GestureDetector(
                   onTap: () => Navigator.push(context,
                       MaterialPageRoute(builder: (_) => const CalculatorScreen())),
                   child: Container(
@@ -557,7 +550,6 @@ class _BigActionCard extends StatelessWidget {
   }
 }
 
-// ── Placeholder ───────────────────────────────────────────────────────────────
 class PlaceholderScreen extends StatelessWidget {
   final String label;
   final IconData icon;

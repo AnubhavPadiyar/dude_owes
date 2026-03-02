@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/expense.dart';
 import '../models/lend_borrow.dart';
-
+import '../models/room_split.dart';
 class DBHelper {
   static const String _expensesKey = 'expenses';
 
@@ -99,5 +99,47 @@ static Future<void> deleteLendBorrow(int id) async {
   await prefs.setString(_lendBorrowKey, jsonEncode(
     items.map((e) => e.toMap()).toList()
   ));
+}
+// ── Room Split ──────────────────────────────────────────────────────────────
+static const String _splitKey = 'split_groups';
+
+static Future<List<SplitGroup>> getSplitGroups() async {
+  final prefs = await SharedPreferences.getInstance();
+  final String? data = prefs.getString(_splitKey);
+  if (data == null) return [];
+  final List<dynamic> jsonList = jsonDecode(data);
+  return jsonList.map((json) => SplitGroup.fromMap(json)).toList();
+}
+
+static Future<void> insertSplitGroup(SplitGroup group) async {
+  final prefs = await SharedPreferences.getInstance();
+  final groups = await getSplitGroups();
+  final newGroup = SplitGroup(
+    id: DateTime.now().millisecondsSinceEpoch,
+    name: group.name,
+    members: group.members,
+    expenses: group.expenses,
+    isSettled: false,
+  );
+  groups.insert(0, newGroup);
+  await prefs.setString(_splitKey,
+      jsonEncode(groups.map((e) => e.toMap()).toList()));
+}
+
+static Future<void> updateSplitGroup(SplitGroup group) async {
+  final prefs = await SharedPreferences.getInstance();
+  final groups = await getSplitGroups();
+  final index = groups.indexWhere((e) => e.id == group.id);
+  if (index != -1) groups[index] = group;
+  await prefs.setString(_splitKey,
+      jsonEncode(groups.map((e) => e.toMap()).toList()));
+}
+
+static Future<void> deleteSplitGroup(int id) async {
+  final prefs = await SharedPreferences.getInstance();
+  final groups = await getSplitGroups();
+  groups.removeWhere((e) => e.id == id);
+  await prefs.setString(_splitKey,
+      jsonEncode(groups.map((e) => e.toMap()).toList()));
 }
 }
