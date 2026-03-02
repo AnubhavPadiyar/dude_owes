@@ -104,10 +104,10 @@ dependencies:
 - [x] Lend / Borrow tracker
 - [x] Built-in Calculator
 - [x] Settings & Onboarding
-- [ ] Room Split feature
-- [ ] PDF Export
+- [x] Room Split feature
+- [x] PDF Export
 - [ ] Dark Mode
-- [ ] Charts in Budget screen
+- [x] Charts in Budget screen
 
 ---
 
