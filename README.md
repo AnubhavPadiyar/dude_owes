@@ -90,8 +90,9 @@ dependencies:
 
 ## 📦 Download APK
 
-[Download DudeOwes v1.0.0](https://github.com/AnubhavPadiyar/dude_owes/releases/tag/v1.0.0)
-[Download DudeOwes v1.0.0](https://github.com/AnubhavPadiyar/dude_owes/releases/tag/v2.0.0)
+-[Download DudeOwes v1.0.0](https://github.com/AnubhavPadiyar/dude_owes/releases/tag/v1.0.0)
+
+-[Download DudeOwes v1.0.0](https://github.com/AnubhavPadiyar/dude_owes/releases/tag/v2.0.0)
 
 ---
 
